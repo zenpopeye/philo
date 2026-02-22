@@ -6,11 +6,11 @@
 /*   By: garevalo <garevalo@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 11:23:33 by garevalo          #+#    #+#             */
-/*   Updated: 2026/02/22 12:04:37 by garevalo         ###   ########.fr       */
+/*   Updated: 2026/02/22 12:16:04 by garevalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.c"
+#include "philo.h"
 
 static int	args_is_valid(char **args)
 {
@@ -61,13 +61,17 @@ int main(int ac, char **av)
 			if (!args_is_valid(&av))
 				return (-1);
 			nro_philos = (unsigned int) get_nbr_value(*av[1]);
-			milli_to_sleep = (unsigned long int) get_nbr_value(*av[2]);
-			milli_to_eat = (unsigned long int) get_nbr_value(*av[3]);
-			milli_to_die = (unsigned long int) get_nbr_value(*av[4]);
-			if (!add_philo(&t_philos, nro_philos, time_to_sleep, time_to_eat, time_to_die))
-				exit_with_error_message("cannot add philo on philos");	
+			time_to_sleep = (unsigned long int) get_nbr_value(*av[2]);
+			time_to_eat = (unsigned long int) get_nbr_value(*av[3]);
+			time_to_die = (unsigned long int) get_nbr_value(*av[4]);
+			if (!add_philo(&philos, nro_philos, time_to_sleep, time_to_eat, time_to_die))
+				exit_with_error_message("cannot add philo on philos");
 			i++;
 		}
+		//instance monitoring
+		//start the jobs -> routines on philos_jobs.c
+		//check updates about philos from monitoring
+		//freeing all the space on memmory
 	}
 	return (0);
 }
