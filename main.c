@@ -6,7 +6,7 @@
 /*   By: garevalo <garevalo@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 11:23:33 by garevalo          #+#    #+#             */
-/*   Updated: 2026/02/23 15:04:33 by garevalo         ###   ########.fr       */
+/*   Updated: 2026/02/23 16:36:31 by garevalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,46 @@ static int	args_is_valid(char **args)
 	return (1);
 }
 
+static void *init_philos_in_memm(size_t nro_philos)
+{
+	void *philos;
+
+	if (!nro_philos || nro_philos <= 0)
+		return (NULL);
+	philos = malloc(sizeof(t_philo) * nro_philos + 1);
+	if (!philos)
+		return (NULL);
+	return (philos);
+}
+static int	add_philo(int id, t_philo *philos, unsigned int time_to_eat,  unsigned int time_to_sleep, unsigned int time_to_kill)
+{
+	//create philo instances
+	//si no se pudo crear devuelvo 0
+	return (1);
+}
+
 int main(int ac, char **av)
 {
 	//TODO: 
+	// [R] review types, refactor.
 	// [X] check and validate the params/args
 	// [] create philo instances : create(number_of_philosophers time_to_die time_to_eat time_to_sleep )
 	// [] check error on create
 	// [] show philo data
 	
 	int i;
-	unsigned int	nro_philos;
+	size_t				nro_philos;
 	unsigned long int	time_to_sleep;
 	unsigned long int	time_to_eat;
-	unsigned long int	time_to_dead;
-	typedef struct t_philos philos;
+	unsigned long int	time_to_kill;
+	typedef struct 		t_philos philos;
 
 	i = 0;
 	if (ac == 5)
 	{
-		if (!init_philos(&philos))
+		nro_philos = (size_t) get_nbr_value(*av[1]);
+		philos = (t_philo *) init_philos_in_memm(nro_hilos);
+		if (!philos)
 			exit_with_error_message("cannot init philos");
 		if (!av)
 			return (0);//error handlig, NO_ARGS	
@@ -60,11 +81,10 @@ int main(int ac, char **av)
 		{
 			if (!args_is_valid(&av))
 				return (-1);
-			nro_philos = (unsigned int) get_nbr_value(*av[1]);
 			time_to_sleep = (unsigned long int) get_nbr_value(*av[2]);
 			time_to_eat = (unsigned long int) get_nbr_value(*av[3]);
-			time_to_die = (unsigned long int) get_nbr_value(*av[4]);
-			if (!add_philo(&philos, nro_philos, time_to_sleep, time_to_eat, time_to_die))
+			time_to_kill = (unsigned long int) get_nbr_value(*av[4]);
+			if (!add_philo(&id, &philos, time_to_sleep, time_to_eat, time_to_kill))
 				exit_with_error_message("cannot add philo on philos");
 			i++;
 		}
