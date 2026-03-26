@@ -27,7 +27,7 @@ void	ft_exit(t_data *data)
 	int	i;
 
 	i = -1;
-	while(--i < data->philo_nbr)
+	while(++i < data->philos_nbr)
 	{
 		pthread_mutex_destroy(&data->forks[i]);
 		pthread_mutex_destroy(&data->philos[i].lock);
@@ -45,7 +45,7 @@ int	error(char *str, t_data *data)
 	return (1);
 }
 
-u_int64_t	get_time(void)
+uint64_t	get_time(void)
 {
 	struct timeval	tv;
 
@@ -56,9 +56,30 @@ u_int64_t	get_time(void)
 
 int	ft_usleep(useconds_t time)
 {
-	u_int64_t	start;
+	uint64_t	start;
 	start = get_time();
 	while ((get_time() - start) < time)
 		usleep(time/10);
 	return (0);
+}
+
+long	ft_atoi(const char *str)
+{
+	long	res;
+	int		sign;
+
+	res = 0;
+	sign = 1;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-')
+		sign = -1;
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str >= '0' && *str <= '9')
+	{
+		res = res * 10 + (*str - '0');
+		str++;
+	}
+	return (res * sign);
 }

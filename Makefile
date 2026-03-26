@@ -12,7 +12,9 @@
 
 NAME = philo
 
-SRCS = 	main.c
+SRCS = 	main.c \
+		src/init.c \
+		philo_utils.c
 
 CC = gcc
 
