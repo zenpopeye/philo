@@ -6,14 +6,17 @@
 #    By: garevalo <garevalo@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/23 15:23:49 by garevalo          #+#    #+#              #
-#    Updated: 2026/02/23 15:26:26 by garevalo         ###   ########.fr        #
+#    Updated: 2026/04/20 14:38:22 by garevalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 SRCS = 	main.c \
+<<<<<<< HEAD
 		src/init.c \
+=======
+>>>>>>> 660e178 (editing makefile)
 		philo_utils.c
 
 CC = gcc
