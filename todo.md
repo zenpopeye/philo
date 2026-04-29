@@ -15,8 +15,8 @@ This document outlines the necessary steps to complete and fix the "Philosophers
 - [X] **Implement `init_philos`**: Set up philosopher structures, assigning IDs and linking forks.
 
 ## 3. Utility Functions (`philo_utils.c`)
-- [ ] **Fix `ft_exit`**: Correct the loop logic (it currently decrements `i` from `-1`).
-- [ ] **Implement `get_time`**: Correctly calculate time in milliseconds using `gettimeofday`.
+- [X] **Fix `ft_exit`**: Correct the loop logic (it currently decrements `i` from `-1`).
+- [doing] **Implement `get_time`**: Correctly calculate time in milliseconds using `gettimeofday`.
 - [ ] **Refine `ft_usleep`**: Ensure it's precise and doesn't drift significantly.
 - [ ] **Error Handling**: Standardize error messages and cleanup on failure.
 
