@@ -6,7 +6,7 @@
 /*   By: garevalo <garevalo@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:27:25 by garevalo          #+#    #+#             */
-/*   Updated: 2026/04/29 18:00:46 by garevalo         ###   ########.fr       */
+/*   Updated: 2026/04/30 21:12:46 by garevalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,9 @@ long ft_atoi(const char *str) {
     str++;
   }
   return (res * sign);
+}
+
+int	is_digit(char c)
+{
+	return (c >= '0' && c <= '9');
 }

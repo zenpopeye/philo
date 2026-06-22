@@ -6,7 +6,7 @@
 /*   By: garevalo <garevalo@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 12:17:33 by garevalo          #+#    #+#             */
-/*   Updated: 2026/02/24 23:26:04 by garevalo         ###   ########.fr       */
+/*   Updated: 2026/04/30 21:13:55 by garevalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ typedef struct s_data {
   pthread_mutex_t write;
 } t_data;
 
-long ft_atoi(const char *str);
+int	is_digit(char c);
+
+int init(t_data *data, char **argv, int argc);
+void init_monitor(t_data *data);
+void init_rutine(t_data *data);
 
 #endif
