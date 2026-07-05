@@ -24,6 +24,15 @@
 
 #define MAX_PHILO 200
 
+typedef enum e_status
+{
+	THINKING = 0,
+	EATING = 1,
+	SLEEPING = 2,
+	DEAD = 3
+
+} t_status;
+
 struct s_data;
 
 typedef struct s_philo {
@@ -37,6 +46,7 @@ typedef struct s_philo {
   pthread_mutex_t lock;
   pthread_mutex_t *r_fork;
   pthread_mutex_t *l_fork;
+  struct s_philo *next;
 } t_philo;
 
 typedef struct s_data {
@@ -55,10 +65,24 @@ typedef struct s_data {
   pthread_mutex_t write;
 } t_data;
 
-int	is_digit(char c);
 
-int init(t_data *data, char **argv, int argc);
-void init_monitor(t_data *data);
-void init_rutine(t_data *data);
+int	init_data(t_data *data, int ac, char **av);
+int	init_philos(t_data *data);
+t_philo *create_philo(int id, t_data *data);
+int	start_simulation(t_data *data);
+void	*philo_routine(void *arg);
+void	*monitor_routine(void *arg);
+
+void	eat(t_philo *philo);
+void	sleepp(t_philo *philo);
+void	think(t_philo *philo);
+void	pickforks(t_philo *philo);
+void	dropforks(t_philo *philo);
+
+uint64_t	get_time(void);
+void	ft_usleep(uint64_t ms);
+void	print_status(t_philo *philo, const char *msg);
+int	ft_atoi(const char *nbr);
+void	free_all(t_data *data);
 
 #endif

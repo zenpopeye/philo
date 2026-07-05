@@ -12,72 +12,54 @@
 
 #include "philo.h"
 
-void clear_data(t_data *data) {
-  if (data->tid)
-    free(data->tid);
-  if (data->forks)
-    free(data->forks);
-  if (data->philos)
-    free(data->philos);
-}
-
-void ft_exit(t_data *data) {
-  int i;
-
-  i = 0;
-  while (i < data->philos_nbr) {
-    pthread_mutex_destroy(&data->forks[i]);
-    pthread_mutex_destroy(&data->philos[i].lock);
-    i++;
-  }
-  pthread_mutex_destroy(&data->write);
-  pthread_mutex_destroy(&data->lock);
-  clear_data(data);
-}
-
-int error(char *str, t_data *data) {
-  printf("%s\n", str);
-  if (data)
-    ft_exit(data);
-  return (1);
-}
-
 uint64_t get_time(void) {
   struct timeval tv;
 
-  if (gettimeofday(&tv, NULL))
-    return (error("gettimeofday() FAILURE\n", NULL));
-  return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+  gettimeofday(&tv, NULL);
+  return ( (tv.tv_sec * 1000) + (tv.tv_usec / 1000) );
 }
 
-int ft_usleep(useconds_t time) {
-  uint64_t start;
-  start = get_time();
-  while ((get_time() - start) < time)
-    usleep(time / 10);
-  return (0);
+void	ft_usleep(uint64_t ms) {
+	uint64_t start;
+	start = get_time();
+	while ((get_time() - start) < ms)
+		usleep(100);
 }
 
-long ft_atoi(const char *str) {
-  long res;
-  int sign;
+int ft_atoi(const char *str) {
+	int res;
+	int sign;
 
-  res = 0;
-  sign = 1;
-  while (*str == ' ' || (*str >= 9 && *str <= 13))
-    str++;
-  if (*str == '-')
-    sign = -1;
-  if (*str == '-' || *str == '+')
-    str++;
-  while (*str >= '0' && *str <= '9') {
-    res = res * 10 + (*str - '0');
-    str++;
-  }
-  return (res * sign);
+	res = 0;
+	sign = 1;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+	str++;
+	if (*str == '-')
+	sign = -1;
+	if (*str == '-' || *str == '+')
+	str++;
+	while (*str >= '0' && *str <= '9') {
+	res = res * 10 + (*str - '0');
+	str++;
+	}
+	return (res * sign);
 }
 
-int	is_digit(char c)
+void	print_status(t_philo *philo, const char *msg)
 {
-	return (c >= '0' && c <= '9');
+	uint64_t timestamp;
+	t_data	*data;
+
+	data = philo->data;
+	pthread_mutex_lock(&data->lock);
+	if (data->dead && msg[0] != 'd')
+	{
+		pthread_mutex_unlock(&data->lock);
+		return ;
+	}
+	pthread_mutex_unlock(&data->lock);
+	pthread_mutex_lock(&data->write);
+	timestamp = get_time() - data->start_time;
+	printf("%llu %d %s/n", timestamp, philo->id, msg);
+	pthread_mutex_unlock(&data->write);
 }

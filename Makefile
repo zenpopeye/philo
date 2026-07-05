@@ -12,30 +12,29 @@
 
 NAME = philo
 
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -pthread
+
 SRCS = main.c \
-	   philo.c \
 	   philo_utils.c \
 	   src/init.c \
 	   src/monitor.c \
-	   src/rutine.c
-
-CC = cc
-
-CFLAGS = -Werror -Wextra -Wall
-
-PTHREAD = -lpthread
+	   src/rutine.c \
+	   src/simulation.c \
+	   src/cleanup.c
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -o $@ $(PTHREAD)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.c
+%.o: %.c philo.h
 	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	rm -f $(OBJS)
+	rm -rf $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
