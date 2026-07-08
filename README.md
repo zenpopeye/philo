@@ -4,7 +4,7 @@ Este proyecto ha sido creado como parte del currículo de 42 por garevalo.
 
 ## to-do: traducir al ingles.
 
-	Philosophers es uno de los programas que mejor pueden explicar
+Philosophers es uno de los programas que mejor pueden explicar
 las condiciones de carrera entre procesos. Y por que es tan importante.
 El problema de philosophers nos dicta una serie de reglas y un target,
 que todos coman por igual en N ciclos completos (comer-> pensar-> dormir).
@@ -18,7 +18,9 @@ direccion de memoria (que esta almacenando K variables que deben compartir
 entre todos ya que entre ellos no pueden/deben comunicarse),
 Esto puede conseguir que mas de un philosopher puede quedarse sin comer y,
 morir.
+
 ---
+
 # Intrucciones
 
 ``` bash
