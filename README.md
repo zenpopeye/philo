@@ -1,4 +1,4 @@
-Este proyecto ha sido creado como parte del currículo de 42 por garevalo.
+*Este proyecto ha sido creado como parte del currículo de 42 por garevalo.*
 
 # Descripcion
 
