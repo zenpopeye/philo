@@ -1,8 +1,51 @@
 *Este proyecto ha sido creado como parte del currículo de 42 por garevalo.*
+*This project was created as a part of the 42's curriculum by garevalo*
 
-# Descripcion
+# Description.
 
-## to-do: traducir al ingles.
+## Intodution
+
+Philosophers is one of the best programs to manage "data races" in multi-thread programming.
+
+*Data race* occurs when two or more threads are triying to the same memory address  eg. *&philo->lock*
+
+
+Why is mutex used to manage this kinda of computanional problems?
+
+Mutex is a Mutual Exclusion Tool, and is useful for protecting 
+shared data structures from current modifications and implementingn critical sections
+and monitors.
+
+That can lead with data-races. Mutex use decrease the program performance
+in ejecution time. This is because mutex block everything inside the *block call* when it is called. 
+
+``` c
+
+static int	check_death(t_philo *philo)
+{
+	uint64_t now;
+	int	died;
+
+	died = 0;
+	thread_mutex_lock(&philo->lock);
+	now = get_time();
+	if (!philo->eating && &philo->time_to_die)
+	{
+		die = 1;
+		philo->status = DEAD;
+	}
+	pthread_mutex_unlock(&philo->lock);
+	return (died);
+}
+
+```
+
+You can also see all mutex documentation [clicking here](https://man7.org/linux/man-pages/man3/pthread_mutex_lock.3.html)
+Some popular good practises also [clicking here](https://medium.com/@sherniiazov.da/mutexes-in-c-ac2b0f1a6d34) 
+
+Lets dive in into our Philosophers problem. Finally. :neckbeard:
+
+continue here..
 
 Philosophers es uno de los programas que mejor pueden explicar
 las condiciones de carrera entre procesos. Y por que es tan importante.
