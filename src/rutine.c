@@ -37,6 +37,7 @@ void	eat(t_philo *philo)
 	ft_usleep(philo->data->eat_time);
 	pthread_mutex_lock(philo->lock);
 	philo->eating = 0;
+	philo->last_meal = get_time();
 	pthread_mutex_unlock(philo->lock);
 	drop_forks(philo);
 }

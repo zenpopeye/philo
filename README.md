@@ -17,7 +17,7 @@ shared data structures from current modifications and implementingn critical sec
 and monitors.
 
 That can lead with data-races. Mutex use decrease the program performance
-in ejecution time. This is because mutex block everything inside the *block call* when it is called. 
+in ejecution time. This is because mutex block everything inside the *pthread_mutex_lock* funtion call when it is called. 
 
 ``` c
 
@@ -27,9 +27,10 @@ static int	check_death(t_philo *philo)
 	int	died;
 
 	died = 0;
-	thread_mutex_lock(&philo->lock);
+	pthread_mutex_lock(&philo->lock);
 	now = get_time();
-	if (!philo->eating && &philo->time_to_die)
+	if (!philo->eating && philo->time_to_die 
+                        && now - philo->last_meal >= phile->time_to_die)
 	{
 		die = 1;
 		philo->status = DEAD;
