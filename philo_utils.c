@@ -13,10 +13,10 @@
 #include "philo.h"
 
 uint64_t get_time(void) {
-  struct timeval tv;
+	struct timeval tv;
 
-  gettimeofday(&tv, NULL);
-  return ( (tv.tv_sec * 1000) + (tv.tv_usec / 1000) );
+	gettimeofday(&tv, NULL);
+	return ( (tv.tv_sec * 1000) + (tv.tv_usec / 1000) );
 }
 
 void	ft_usleep(uint64_t ms) {

@@ -9,7 +9,7 @@ static int	check_death(t_philo *philo)
 	pthread_mutex_lock(&philo->lock);
 	now = get_time();
 	if (!philo->eating && philo->time_to_die 
-			&& (now - philo->last_meal >= philo->time_to_die ))
+			&& (now - philo->time_to_die >= philo->data->death_time))
 	{
 		died = 1;
 		philo->status = DEAD;
@@ -23,7 +23,7 @@ static int	all_philos_full(t_data *data)
 	t_philo *philo;
 	int	all_done;
 
-	if (data->meals_nbr = -1)
+	if (data->meals_nbr == -1)
 		return (0);
 	all_done = 1;
 	philo = data->philos;
@@ -40,7 +40,7 @@ static int	all_philos_full(t_data *data)
 	return (all_done);
 }
 
-static void monitoring(t_data *data, t_philo *philo)
+static void *monitoring(t_data *data, t_philo *philo)
 {
 	while(philo)
 	{
@@ -49,7 +49,8 @@ static void monitoring(t_data *data, t_philo *philo)
 			pthread_mutex_lock(&data->lock);
 			data->dead = 1;
 			pthread_mutex_lock(&data->lock);
-			return (print_status(philo, "DIED"), NULL);
+			print_status(philo, "DIED");
+			return NULL;
 		}
 		philo = philo->next;
 	}
@@ -58,12 +59,13 @@ static void monitoring(t_data *data, t_philo *philo)
 		pthread_mutex_lock(&data->lock);
 		data->finished = 1;
 		pthread_mutex_lock(&data->lock);
-		return (NULL);
+		return NULL;
 	}
 	ft_usleep(1000);
+	return (NULL);
 }
 
-void	monitor_routine(void)
+void	*monitor_routine(void *arg)
 {
 	t_data *data;
 	t_philo *philo;
@@ -72,6 +74,8 @@ void	monitor_routine(void)
 	while (1)
 	{
 		philo = data->philos;
+		//if (NULL == monitoring(data, philo))
+		//	return (NULL);
 		monitoring(data, philo);
 	}
 	return (NULL);

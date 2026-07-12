@@ -83,7 +83,6 @@ t_philo	*create_philo(int id, t_data *data)
 	philo->eat_cont = 0;
 	philo->status = THINKING;
 	philo->eating = 0;
-	philo->last_meal = 0;
 	philo->time_to_die = 0;
 	philo->r_fork = NULL;
 	philo->l_fork = NULL;

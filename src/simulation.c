@@ -4,7 +4,7 @@ static void	set_inital_deadlines(t_data *data)
 {
 	t_philo *philo;
 
-	date->start_time = get_time();
+	data->start_time = get_time();
 	philo = data->philos;
 	while (philo)
 	{
@@ -30,7 +30,6 @@ int	start_simulation(t_data *data)
 		philo = philo->next;
 		i++;
 	}
-
 	if (pthread_create(&monitor, NULL, monitor_routine, data) != 0)
 		return (0);
 	pthread_join(monitor, NULL);

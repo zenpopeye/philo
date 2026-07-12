@@ -28,17 +28,16 @@ void	eat(t_philo *philo)
 {
 	pick_forks(philo);
 	pthread_mutex_lock(&philo->lock);
-	philo_eating = 1;
+	philo->eating = 1;
 	philo->time_to_die = get_time() + philo->data->death_time;
 	philo->eat_cont++;
 	philo->status = EATING;
 	pthread_mutex_unlock(&philo->lock);
 	print_status(philo, "is eating ..");
 	ft_usleep(philo->data->eat_time);
-	pthread_mutex_lock(philo->lock);
+	pthread_mutex_lock(&philo->lock);
 	philo->eating = 0;
-	philo->last_meal = get_time();
-	pthread_mutex_unlock(philo->lock);
+	pthread_mutex_unlock(&philo->lock);
 	drop_forks(philo);
 }
 
@@ -69,9 +68,9 @@ void	*philo_routine(void *arg)
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->lock);
-		if (philo->data->dead) || philo->data->finished)
+		if (philo->data->dead || philo->data->finished)
 		{
-			pthread_mutex_unlock(&philo);
+			pthread_mutex_unlock(&philo->data->lock);
 			break;
 		}
 		pthread_mutex_unlock(&philo->data->lock);

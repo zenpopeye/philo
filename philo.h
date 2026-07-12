@@ -42,7 +42,6 @@ typedef struct s_philo {
   int eat_cont;
   int status;
   int eating;
-  uint64_t last_meal;
   uint64_t time_to_die;
   pthread_mutex_t lock;
   pthread_mutex_t *r_fork;
