@@ -60,6 +60,6 @@ void	print_status(t_philo *philo, const char *msg)
 	pthread_mutex_unlock(&data->lock);
 	pthread_mutex_lock(&data->write);
 	timestamp = get_time() - data->start_time;
-	printf("%llu %d %s/n", timestamp, philo->id, msg);
+	printf("%llu %d %s\n", timestamp, philo->id, msg);
 	pthread_mutex_unlock(&data->write);
 }

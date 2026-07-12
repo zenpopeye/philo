@@ -1,6 +1,6 @@
 #include "../philo.h"
 
-static void	set_inital_deadlines(t_data *data)
+static void	set_initial_deadlines(t_data *data)
 {
 	t_philo *philo;
 
@@ -24,7 +24,7 @@ int	start_simulation(t_data *data)
 	i = 0;
 	while (philo)
 	{
-		if (pthread_create(&philo->t1, philo_routine, philo) != 0)
+		if (pthread_create(&philo->t1, NULL, philo_routine, philo) != 0)
 			return (0);
 		data->tid[i] = philo->t1;
 		philo = philo->next;
@@ -33,7 +33,7 @@ int	start_simulation(t_data *data)
 	if (pthread_create(&monitor, NULL, monitor_routine, data) != 0)
 		return (0);
 	pthread_join(monitor, NULL);
-	philo = data_philos;
+	philo = data->philos;
 	while (philo)
 	{
 		pthread_join(philo->t1, NULL);
@@ -41,5 +41,3 @@ int	start_simulation(t_data *data)
 	}
 	return (1);
 }
-
-

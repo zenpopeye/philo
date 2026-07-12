@@ -33,19 +33,21 @@ int	init_mutexes(t_data *data)
 
 int	init_data(t_data *data, int ac, char **av)
 {
+	int	i;
+
 	data->philos_nbr = ft_atoi(av[1]);
 	data->death_time = (uint64_t) ft_atoi(av[2]);
 	data->eat_time = (uint64_t) ft_atoi(av[3]);
 	data->sleep_time = (uint64_t) ft_atoi(av[4]);
 	data->meals_nbr = -1;
-	if (ac == 5)
+	if (ac == 6)
 		data->meals_nbr = ft_atoi(av[5]);
 	data->dead = 0;
 	data->finished = 0;
 	data->philos = NULL;
 	data->forks = NULL;
 	data->tid = NULL;
-	data->start_time = 0;
+	data->start_time = get_time();
 
 	if (!init_mutexes(data))
 		return (0);
@@ -58,7 +60,6 @@ int	init_data(t_data *data, int ac, char **av)
 	data->tid = malloc(sizeof(pthread_t) * data->philos_nbr);
 	if (!data->tid)
 	{
-		int i;
 		i = 0;
 		while (i < data->philos_nbr)
 			pthread_mutex_destroy(&data->forks[i++]);
@@ -135,6 +136,7 @@ int	init_philos(t_data *data)
 	while (i <= data->philos_nbr)
 	{
 		if (!add_philo(i, data))
+			return (0);
 		i++;
 	}
 	current = data->philos;

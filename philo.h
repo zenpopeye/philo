@@ -12,7 +12,6 @@
 
 #ifndef PHILO_H
 #define PHILO_H
-#define PHILO_H
 
 #include <pthread.h>
 #include <stdint.h>

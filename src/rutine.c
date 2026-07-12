@@ -1,28 +1,4 @@
-#include "../philo.h"
-
-void	pick_forks(t_philo *philo)
-{
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_lock(philo->r_fork);
-		print_status(philo, "has taken a fork");
-		pthread_mutex_lock(philo->l_fork);
-		print_status(philo, "has taken a fork");
-	}
-	else
-	{
-		pthread_mutex_lock(philo->l_fork);
-		print_status(philo, "has taken a fork");
-		pthread_mutex_lock(philo->r_fork);
-		print_status(philo, "has taken a fork");
-	}
-}
-
-void	drop_forks(t_philo *philo)
-{
-	pthread_mutex_unlock(philo->l_fork);
-	pthread_mutex_unlock(philo->r_fork);
-}
+#include "rutine.h"
 
 void	eat(t_philo *philo)
 {
@@ -31,6 +7,7 @@ void	eat(t_philo *philo)
 	philo->eating = 1;
 	philo->time_to_die = get_time() + philo->data->death_time;
 	philo->eat_cont++;
+	printf("\nEAT_COUNTER!!! : %d BY %d\n", philo->eat_cont, philo->id);
 	philo->status = EATING;
 	pthread_mutex_unlock(&philo->lock);
 	print_status(philo, "is eating ..");
@@ -75,6 +52,13 @@ void	*philo_routine(void *arg)
 		}
 		pthread_mutex_unlock(&philo->data->lock);
 		eat(philo);
+		pthread_mutex_lock(&philo->lock);
+		if (philo->data->meals_nbr != -1 && philo->eat_cont >= philo->data->meals_nbr)
+		{
+			pthread_mutex_unlock(&philo->lock);
+			break;
+		}
+		pthread_mutex_unlock(&philo->lock);
 		sleepp(philo);
 		think(philo);
 	}

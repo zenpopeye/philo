@@ -13,13 +13,14 @@
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -pthread
 
 SRCS = main.c \
 	   philo_utils.c \
 	   src/init.c \
 	   src/monitor.c \
 	   src/rutine.c \
+	   src/rutine_utils.c \
 	   src/simulation.c \
 	   src/cleanup.c
 
@@ -30,7 +31,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.c philo.h
+%.o: %.c philo.h src/rutine.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
