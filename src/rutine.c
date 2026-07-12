@@ -7,7 +7,7 @@ void	eat(t_philo *philo)
 	philo->eating = 1;
 	philo->time_to_die = get_time() + philo->data->death_time;
 	philo->eat_cont++;
-	printf("\nEAT_COUNTER!!! : %d BY %d\n", philo->eat_cont, philo->id);
+	//printf("\nEAT_COUNTER!!! : %d BY %d\n", philo->eat_cont, philo->id);
 	philo->status = EATING;
 	pthread_mutex_unlock(&philo->lock);
 	print_status(philo, "is eating ..");

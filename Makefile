@@ -18,6 +18,7 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -pthread
 SRCS = main.c \
 	   philo_utils.c \
 	   src/init.c \
+	   src/init_utils.c \
 	   src/monitor.c \
 	   src/rutine.c \
 	   src/rutine_utils.c \
