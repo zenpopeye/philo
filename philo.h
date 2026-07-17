@@ -6,22 +6,22 @@
 /*   By: garevalo <garevalo@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 12:17:33 by garevalo          #+#    #+#             */
-/*   Updated: 2026/04/30 21:13:55 by garevalo         ###   ########.fr       */
+/*   Updated: 2026/07/17 19:16:13 by garevalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
-#define PHILO_H
+# define PHILO_H
 
-#include <pthread.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/time.h>
-#include <unistd.h>
+# include <pthread.h>
+# include <stdint.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/time.h>
+# include <unistd.h>
 
-#define MAX_PHILO 200
+# define MAX_PHILO 200
 
 typedef enum e_status
 {
@@ -29,24 +29,24 @@ typedef enum e_status
 	EATING = 1,
 	SLEEPING = 2,
 	DEAD = 3
+}		t_status;
 
-} t_status;
+struct	s_data;
 
-struct s_data;
-
-typedef struct s_philo {
-  struct s_data *data;
-  pthread_t t1;
-  int id;
-  int eat_cont;
-  int status;
-  int eating;
-  uint64_t time_to_die;
-  pthread_mutex_t lock;
-  pthread_mutex_t *r_fork;
-  pthread_mutex_t *l_fork;
-  struct s_philo *next;
-} t_philo;
+typedef struct s_philo
+{
+  struct s_data		*data;
+  pthread_t	t1;
+  int	id;
+  int	eat_cont;
+  int	status;
+  int	eating;
+  uint64_t	time_to_die;
+  pthread_mutex_t	lock;
+  pthread_mutex_t	*r_fork;
+  pthread_mutex_t	*l_fork;
+  struct s_philo	*next;
+}		t_philo;
 
 typedef struct s_data {
   pthread_t *tid;

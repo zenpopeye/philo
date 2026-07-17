@@ -6,7 +6,7 @@
 /*   By: garevalo <garevalo@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:27:25 by garevalo          #+#    #+#             */
-/*   Updated: 2026/04/30 21:12:46 by garevalo         ###   ########.fr       */
+/*   Updated: 2026/07/17 18:37:06 by garevalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ void	print_status(t_philo *philo, const char *msg)
 	pthread_mutex_unlock(&data->lock);
 	pthread_mutex_lock(&data->write);
 	timestamp = get_time() - data->start_time;
-	printf("%llu %d %s\n", timestamp, philo->id, msg);
+	printf("%lu %d %s\n", timestamp, philo->id, msg);
 	pthread_mutex_unlock(&data->write);
 }

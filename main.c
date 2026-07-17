@@ -6,16 +6,16 @@
 /*   By: garevalo <garevalo@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 11:23:33 by garevalo          #+#    #+#             */
-/*   Updated: 2026/06/22 16:15:40 by garevalo         ###   ########.fr       */
+/*   Updated: 2026/07/17 19:11:30 by garevalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_data *data;
-	
+
 	data = malloc(sizeof(t_data));
 	if (ac != 5 && ac != 6)
 	{
