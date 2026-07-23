@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: k0fe <garevalo@student.42madrid.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/23 21:35:11 by k0fe              #+#    #+#             */
+/*   Updated: 2026/07/23 21:36:51 by k0fe             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "init.h"
 
 static void	append_philo(t_philo **head, t_philo *new_philo)
 {
-	t_philo *current;
+	t_philo	*current;
 
 	if (!*head)
 	{
@@ -17,7 +29,7 @@ static void	append_philo(t_philo **head, t_philo *new_philo)
 
 static int	add_philo(int id, t_data *data)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = create_philo(id, data);
 	if (!philo)
@@ -34,8 +46,8 @@ static void	assign_forks(t_philo *philo, t_data *data)
 
 int	init_philos(t_data *data)
 {
-	int	i;
-	t_philo *current;
+	t_philo	*current;
+	int		i;
 
 	i = 1;
 	while (i <= data->philos_nbr)

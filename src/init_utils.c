@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: k0fe <garevalo@student.42madrid.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/23 21:38:14 by k0fe              #+#    #+#             */
+/*   Updated: 2026/07/23 21:39:17 by k0fe             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "init.h"
 
 int	init_forks(t_data *data)
 {
 	int	i;
+
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->philos_nbr);
 	if (!data->forks)
 		return (0);
@@ -52,7 +65,6 @@ int	init_data(t_data *data, int ac, char **av)
 {
 	int	i;
 
-	
 	init_data_aux(data, av, ac);
 	if (!init_mutexes(data))
 		return (0);
@@ -78,7 +90,7 @@ int	init_data(t_data *data, int ac, char **av)
 
 t_philo	*create_philo(int id, t_data *data)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = malloc(sizeof(t_philo));
 	if (!philo)

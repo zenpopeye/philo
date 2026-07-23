@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rutine.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: k0fe <garevalo@student.42madrid.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/23 21:42:44 by k0fe              #+#    #+#             */
+/*   Updated: 2026/07/23 22:24:57 by k0fe             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rutine.h"
 
 void	eat(t_philo *philo)
@@ -7,7 +19,6 @@ void	eat(t_philo *philo)
 	philo->eating = 1;
 	philo->time_to_die = get_time() + philo->data->death_time;
 	philo->eat_cont++;
-	//printf("\nEAT_COUNTER!!! : %d BY %d\n", philo->eat_cont, philo->id);
 	philo->status = EATING;
 	pthread_mutex_unlock(&philo->lock);
 	print_status(philo, "is eating ..");
@@ -35,30 +46,38 @@ void	think(t_philo *philo)
 	print_status(philo, "thinking ..");
 }
 
+static int	check_meals(t_philo *philo)
+{
+	int	done;
+
+	done = 0;
+	pthread_mutex_lock(&philo->lock);
+	if (philo->data->meals_nbr != -1
+		&& philo->eat_cont >= philo->data->meals_nbr)
+		done = 1;
+	pthread_mutex_unlock(&philo->lock);
+	return (done);
+}
+//revisar logica entro en un bucle , debe estar bloqueandose entre procesos y ninguno accede
 void	*philo_routine(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-		ft_usleep(philo->data->eat_time /2);
+		ft_usleep(philo->data->eat_time / 2);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->lock);
 		if (philo->data->dead || philo->data->finished)
 		{
 			pthread_mutex_unlock(&philo->data->lock);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&philo->data->lock);
 		eat(philo);
-		pthread_mutex_lock(&philo->lock);
-		if (philo->data->meals_nbr != -1 && philo->eat_cont >= philo->data->meals_nbr)
-		{
-			pthread_mutex_unlock(&philo->lock);
-			break;
-		}
-		pthread_mutex_unlock(&philo->lock);
+		if (check_meals(philo))
+			break ;
 		sleepp(philo);
 		think(philo);
 	}

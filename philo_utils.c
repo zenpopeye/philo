@@ -12,43 +12,48 @@
 
 #include "philo.h"
 
-uint64_t get_time(void) {
-	struct timeval tv;
+uint64_t	get_time(void)
+{
+	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return ( (tv.tv_sec * 1000) + (tv.tv_usec / 1000) );
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void	ft_usleep(uint64_t ms) {
-	uint64_t start;
+void	ft_usleep(uint64_t ms)
+{
+	uint64_t	start;
+
 	start = get_time();
 	while ((get_time() - start) < ms)
 		usleep(100);
 }
 
-int ft_atoi(const char *str) {
-	int res;
-	int sign;
+int	ft_atoi(const char *str)
+{
+	int	res;
+	int	sign;
 
 	res = 0;
 	sign = 1;
 	while (*str == ' ' || (*str >= 9 && *str <= 13))
-	str++;
+		str++;
 	if (*str == '-')
-	sign = -1;
+		sign = -1;
 	if (*str == '-' || *str == '+')
-	str++;
-	while (*str >= '0' && *str <= '9') {
-	res = res * 10 + (*str - '0');
-	str++;
+		str++;
+	while (*str >= '0' && *str <= '9')
+	{
+		res = res * 10 + (*str - '0');
+		str++;
 	}
 	return (res * sign);
 }
 
 void	print_status(t_philo *philo, const char *msg)
 {
-	uint64_t timestamp;
-	t_data	*data;
+	uint64_t	timestamp;
+	t_data		*data;
 
 	data = philo->data;
 	pthread_mutex_lock(&data->lock);
@@ -60,6 +65,6 @@ void	print_status(t_philo *philo, const char *msg)
 	pthread_mutex_unlock(&data->lock);
 	pthread_mutex_lock(&data->write);
 	timestamp = get_time() - data->start_time;
-	printf("%lu %d %s\n", timestamp, philo->id, msg);
+	printf("%llu %d %s\n", timestamp, philo->id, msg);
 	pthread_mutex_unlock(&data->write);
 }

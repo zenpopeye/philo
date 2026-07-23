@@ -14,16 +14,17 @@
 
 int	main(int ac, char **av)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = malloc(sizeof(t_data));
 	if (ac != 5 && ac != 6)
 	{
-		printf("Usage: ./philo philos_nbr death_time eat_time sleep_time [meals_nbr]\n");
+		printf("Usage: ./philo philos_nbr death_time eat_time "
+			"sleep_time [meals_nbr]\n");
 		return (1);
 	}
 	if (!init_data(data, ac, av))
-		return (free(data),1);
+		return (free(data), 1);
 	if (!init_philos(data))
 		return (free_all(data), 1);
 	if (!start_simulation(data))

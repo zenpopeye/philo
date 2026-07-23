@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simulation.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: k0fe <garevalo@student.42madrid.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/23 21:45:47 by k0fe              #+#    #+#             */
+/*   Updated: 2026/07/23 21:47:00 by k0fe             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../philo.h"
 
 static void	set_initial_deadlines(t_data *data)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	data->start_time = get_time();
 	philo = data->philos;
@@ -15,9 +27,9 @@ static void	set_initial_deadlines(t_data *data)
 
 int	start_simulation(t_data *data)
 {
-	t_philo *philo;
-	pthread_t monitor;
-	int	i;
+	pthread_t	monitor;
+	t_philo		*philo;
+	int			i;
 
 	set_initial_deadlines(data);
 	philo = data->philos;
@@ -37,7 +49,7 @@ int	start_simulation(t_data *data)
 	while (philo)
 	{
 		pthread_join(philo->t1, NULL);
-		philo= philo->next;
+		philo = philo->next;
 	}
 	return (1);
 }
