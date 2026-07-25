@@ -18,5 +18,5 @@
 void	pick_forks(t_philo *philo, pthread_mutex_t *first,
 			pthread_mutex_t *second);
 void	drop_forks(pthread_mutex_t *first, pthread_mutex_t *second);
-
+int		check_meals(t_philo *philo);
 #endif

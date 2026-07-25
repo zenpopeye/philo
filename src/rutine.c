@@ -81,6 +81,8 @@ void	*philo_routine(void *arg)
 		}
 		pthread_mutex_unlock(&philo->data->lock);
 		eat(philo);
+		if (check_meals(philo))
+			break ;
 		sleepp(philo);
 		think(philo);
 	}
