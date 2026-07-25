@@ -44,9 +44,11 @@ int	init_mutexes(t_data *data)
 	return (1);
 }
 
-static void	init_data_aux(t_data *data, char **av, int ac)
+static int	init_data_aux(t_data *data, char **av, int ac)
 {
 	data->philos_nbr = ft_atoi(av[1]);
+	if (data->philos_nbr <= 1)
+		return (0);
 	data->death_time = (uint64_t) ft_atoi(av[2]);
 	data->eat_time = (uint64_t) ft_atoi(av[3]);
 	data->sleep_time = (uint64_t) ft_atoi(av[4]);
@@ -59,13 +61,15 @@ static void	init_data_aux(t_data *data, char **av, int ac)
 	data->forks = NULL;
 	data->tid = NULL;
 	data->start_time = get_time();
+	return (1);
 }
 
 int	init_data(t_data *data, int ac, char **av)
 {
 	int	i;
 
-	init_data_aux(data, av, ac);
+	if (!init_data_aux(data, av, ac))
+		return (0);
 	if (!init_mutexes(data))
 		return (0);
 	if (!init_forks(data))
@@ -102,7 +106,7 @@ t_philo	*create_philo(int id, t_data *data)
 	philo->status = THINKING;
 	philo->eating = 0;
 	philo->time_to_die = 0;
-	philo->last_meal = data->start_time;
+	philo->last_meal = get_time();
 	philo->r_fork = NULL;
 	philo->l_fork = NULL;
 	if (pthread_mutex_init(&philo->lock, NULL) != 0)

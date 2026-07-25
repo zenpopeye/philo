@@ -17,18 +17,20 @@ int	main(int ac, char **av)
 	t_data	*data;
 
 	data = malloc(sizeof(t_data));
+	if (!data)
+		return (1);
 	if (ac != 5 && ac != 6)
 	{
-		printf("Usage: ./philo philos_nbr death_time eat_time "
-			"sleep_time [meals_nbr]\n");
-		return (1);
+		printf("Usage: ./philo number_of_philosophers time_to_die time_to_eat"
+			"time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
+		return (free(data), 1);
 	}
 	if (!init_data(data, ac, av))
 		return (free(data), 1);
 	if (!init_philos(data))
-		return (free_all(data), 1);
+		return (free(data), 1);
 	if (!start_simulation(data))
-		return (free_all(data), 1);
+		return (free(data), 1);
 	free_all(data);
 	return (0);
 }

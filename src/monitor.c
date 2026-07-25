@@ -15,48 +15,48 @@
 static int	check_death(t_philo *philo)
 {
 	uint64_t	now;
+	uint64_t	last;
 	int			died;
 
 	died = 0;
 	pthread_mutex_lock(&philo->lock);
-	now = get_time();
-	if (!philo->eating && philo->time_to_die && now >= philo->time_to_die)
-	{
-		died = 1;
-		philo->status = DEAD;
-	}
+	last = philo->last_meal;
 	pthread_mutex_unlock(&philo->lock);
+	now = get_time();
+	if (now - last > philo->data->death_time)
+		died = 1;
 	return (died);
 }
 
 static int	all_philos_full(t_data *data)
 {
 	t_philo	*philo;
-	int		all_done;
+	int		full;
+	int		i;
 
-	if (data->meals_nbr == -1)
-		return (0);
-	all_done = 1;
+	i = 0;
 	philo = data->philos;
-	while (philo)
+	while (philo && i < data->philos_nbr)
 	{
 		pthread_mutex_lock(&philo->lock);
-		if (philo->eat_cont < data->meals_nbr)
-			all_done = 0;
+		full = (philo->eat_cont >= data->meals_nbr);
 		pthread_mutex_unlock(&philo->lock);
-		if (!all_done)
-			break ;
+		if (!full)
+			return (0);
 		philo = philo->next;
+		i++;
 	}
-	return (all_done);
+	return (1);
 }
 
 static void	*monitoring(t_data *data)
 {
-	t_philo	*philo;
+	int	i;
+	t_philo *philo;
 
+	i = 0;
 	philo = data->philos;
-	while (philo)
+	while (philo && i < data->philos_nbr)
 	{
 		if (check_death(philo))
 		{
@@ -67,6 +67,7 @@ static void	*monitoring(t_data *data)
 			return (NULL);
 		}
 		philo = philo->next;
+		i++;
 	}
 	if (data->meals_nbr != -1 && all_philos_full(data))
 	{
@@ -86,8 +87,8 @@ void	*monitor_routine(void *arg)
 	data = (t_data *) arg;
 	while (1)
 	{
-		if (NULL == monitoring(data))
-			return (NULL);
+		if (!monitoring(data))
+			break ;
 	}
 	return (NULL);
 }

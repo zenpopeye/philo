@@ -50,7 +50,7 @@ int	init_philos(t_data *data)
 	int		i;
 
 	i = 1;
-	while (i <= data->philos_nbr)
+	while (i < data->philos_nbr)
 	{
 		if (!add_philo(i, data))
 			return (0);

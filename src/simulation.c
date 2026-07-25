@@ -20,6 +20,7 @@ static void	set_initial_deadlines(t_data *data)
 	philo = data->philos;
 	while (philo)
 	{
+		philo->last_meal = data->start_time;
 		philo->time_to_die = data->start_time + data->death_time;
 		philo = philo->next;
 	}
