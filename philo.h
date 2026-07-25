@@ -38,6 +38,7 @@ typedef struct s_philo
 	struct s_data		*data;
 	pthread_t			t1;
 	uint64_t			time_to_die;
+	uint64_t			last_meal;
 	pthread_mutex_t		lock;
 	pthread_mutex_t		*r_fork;
 	pthread_mutex_t		*l_fork;

@@ -102,6 +102,7 @@ t_philo	*create_philo(int id, t_data *data)
 	philo->status = THINKING;
 	philo->eating = 0;
 	philo->time_to_die = 0;
+	philo->last_meal = data->start_time;
 	philo->r_fork = NULL;
 	philo->l_fork = NULL;
 	if (pthread_mutex_init(&philo->lock, NULL) != 0)

@@ -12,14 +12,15 @@
 
 #include "rutine.h"
 
-static void	eating(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *second)
+static void	eating(t_philo *philo, pthread_mutex_t *first,
+	pthread_mutex_t *second)
 {
 	pthread_mutex_lock(first);
 	print_status(philo, "has taken a fork");
 	pthread_mutex_lock(second);
 	print_status(philo, "has taken a fork");
 	pthread_mutex_lock(&philo->lock);
-	//philo->last_meal = get_time();
+	philo->last_meal = get_time();
 	philo->eating = 1;
 	pthread_mutex_unlock(&philo->lock);
 	print_status(philo, "is eating");
@@ -34,8 +35,8 @@ static void	eating(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *seco
 
 void	eat(t_philo *philo)
 {
-	pthread_mutex_t *first;
-	pthread_mutex_t *second;
+	pthread_mutex_t	*first;
+	pthread_mutex_t	*second;
 
 	if (philo->l_fork < philo->r_fork)
 	{
