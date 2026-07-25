@@ -12,21 +12,42 @@
 
 #include "rutine.h"
 
-void	eat(t_philo *philo)
+static void	eating(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *second)
 {
-	pick_forks(philo);
+	pthread_mutex_lock(first);
+	print_status(philo, "has taken a fork");
+	pthread_mutex_lock(second);
+	print_status(philo, "has taken a fork");
 	pthread_mutex_lock(&philo->lock);
+	//philo->last_meal = get_time();
 	philo->eating = 1;
-	philo->time_to_die = get_time() + philo->data->death_time;
-	philo->eat_cont++;
-	philo->status = EATING;
 	pthread_mutex_unlock(&philo->lock);
-	print_status(philo, "is eating ..");
+	print_status(philo, "is eating");
 	ft_usleep(philo->data->eat_time);
 	pthread_mutex_lock(&philo->lock);
 	philo->eating = 0;
+	philo->eat_cont++;
 	pthread_mutex_unlock(&philo->lock);
-	drop_forks(philo);
+	pthread_mutex_unlock(first);
+	pthread_mutex_unlock(second);
+}
+
+void	eat(t_philo *philo)
+{
+	pthread_mutex_t *first;
+	pthread_mutex_t *second;
+
+	if (philo->l_fork < philo->r_fork)
+	{
+		first = philo->l_fork;
+		second = philo->r_fork;
+	}
+	else
+	{
+		first = philo->r_fork;
+		second = philo->l_fork;
+	}
+	eating(philo, first, second);
 }
 
 void	sleepp(t_philo *philo)
@@ -46,19 +67,6 @@ void	think(t_philo *philo)
 	print_status(philo, "thinking ..");
 }
 
-static int	check_meals(t_philo *philo)
-{
-	int	done;
-
-	done = 0;
-	pthread_mutex_lock(&philo->lock);
-	if (philo->data->meals_nbr != -1
-		&& philo->eat_cont >= philo->data->meals_nbr)
-		done = 1;
-	pthread_mutex_unlock(&philo->lock);
-	return (done);
-}
-//revisar logica entro en un bucle , debe estar bloqueandose entre procesos y ninguno accede
 void	*philo_routine(void *arg)
 {
 	t_philo	*philo;
@@ -76,8 +84,6 @@ void	*philo_routine(void *arg)
 		}
 		pthread_mutex_unlock(&philo->data->lock);
 		eat(philo);
-		if (check_meals(philo))
-			break ;
 		sleepp(philo);
 		think(philo);
 	}

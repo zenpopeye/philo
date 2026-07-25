@@ -68,7 +68,7 @@ static void	*monitoring(t_data *data)
 		}
 		philo = philo->next;
 	}
-	if (all_philos_full(data))
+	if (data->meals_nbr != -1 && all_philos_full(data))
 	{
 		pthread_mutex_lock(&data->lock);
 		data->finished = 1;
