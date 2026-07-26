@@ -21,6 +21,13 @@ void	pick_forks(t_philo *philo, pthread_mutex_t *first,
 	print_status(philo, "has taken a fork");
 }
 
+void	*end_one(t_philo *philo)
+{
+	print_status(philo, "has taken a fork");
+	ft_usleep(philo->data->death_time);
+	return ((void *) NULL);
+}
+
 void	drop_forks(pthread_mutex_t *first,
 	pthread_mutex_t *second)
 {

@@ -15,6 +15,7 @@
 
 # include "../philo.h"
 
+void	*end_one(t_philo *philo);
 void	pick_forks(t_philo *philo, pthread_mutex_t *first,
 			pthread_mutex_t *second);
 void	drop_forks(pthread_mutex_t *first, pthread_mutex_t *second);
