@@ -47,8 +47,6 @@ int	init_mutexes(t_data *data)
 static int	init_data_aux(t_data *data, char **av, int ac)
 {
 	data->philos_nbr = ft_atoi(av[1]);
-	if (data->philos_nbr <= 1)
-		return (0);
 	data->death_time = (uint64_t) ft_atoi(av[2]);
 	data->eat_time = (uint64_t) ft_atoi(av[3]);
 	data->sleep_time = (uint64_t) ft_atoi(av[4]);

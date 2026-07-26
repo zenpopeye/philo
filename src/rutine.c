@@ -71,6 +71,12 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
 		ft_usleep(philo->data->eat_time / 2);
+	if (philo->data->philos_nbr == 1)
+	{
+		print_status(philo, "has taken a fork");
+		ft_usleep(philo->data->death_time);
+		return (NULL);
+	}
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->lock);

@@ -52,19 +52,12 @@ int	ft_atoi(const char *str)
 
 void	print_status(t_philo *philo, const char *msg)
 {
-	uint64_t	timestamp;
 	t_data		*data;
 
 	data = philo->data;
-	pthread_mutex_lock(&data->lock);
-	if (data->dead && msg[0] != 'd')
-	{
-		pthread_mutex_unlock(&data->lock);
-		return ;
-	}
-	pthread_mutex_unlock(&data->lock);
 	pthread_mutex_lock(&data->write);
-	timestamp = get_time() - data->start_time;
-	printf("%lu %d %s\n", timestamp, philo->id, msg);
+	if (!data->dead)
+		printf("%llu %d %s\n",  
+			get_time() - data->start_time, philo->id, msg);
 	pthread_mutex_unlock(&data->write);
 }
