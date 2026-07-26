@@ -6,7 +6,8 @@
 
 Philosophers is one of the best programs to manage "data races" in multi-thread programming.
 
-*Data race* occurs when two or more threads/proccess are triying to "access/manage" the same memory address  eg. *&philo->lock*
+*Data race* occurs when two or more threads/proccess are triying to "access/manage" the same memory address eg. *&philo->lock*
+
 
 Why is mutex used to manage this kinda of computanional problems?
 
@@ -14,9 +15,9 @@ Mutex is a Mutual Exclusion Tool, and is useful for protecting
 shared data structures from current modifications and implementingn critical sections
 and monitors.
 
-That can lead with data-races. Mutex use can be decreasing the program performance
-in ejecution time. This is because mutex block everything between the *pthread_mutex_lock* *pthread_mutex_unlock*
-call. 
+That can lead with data-races. Mutex bad usage can be decreasing the program performance
+in ejecution time and bug the program by deadlock. This is because mutex block everything between the 
+*pthread_mutex_lock* */*data manipulation code */* *pthread_mutex_unlock*. Using mutexes we have to try to do not open "data race" windows for preventing unexpected behaivor in our logic.
 
 ``` c
 
@@ -26,14 +27,15 @@ static int	check_death(t_philo *philo)
 	int	died;
 
 	died = 0;
-	pthread_mutex_lock(&philo->lock); //lock is a mutex pointer instance for philo pointer. Here I am 
-    //locking the philo mutex.
+	pthread_mutex_lock(&philo->lock); //lock, im gonna eval if the philo are dead. 
 	now = get_time();
 	if (!philo->eating && philo->time_to_die 
-                        && now - philo->last_meal >= phile->time_to_die)
+                        && now - philo->last_meal >= phile->time_to_die) //<- philo is dead?
 	{
 		die = 1;
-		philo->status = DEAD; //possible "data race condition": when 2 or more proccess are trying to manipulate &philo->status. Actually the main reason is made changes in the same mem address "&philo == 0x1eFF...0 "
+		philo->status = DEAD; //possible "data race condition": when 2 or more proccess are trying 
+        //to manipulate &philo->status.
+        //Actually the main reason is made changes in the same mem address "0x1eFF...0 "
 	}
 	pthread_mutex_unlock(&philo->lock); //unlocking, the job is done. :D
 	return (died);
@@ -41,7 +43,7 @@ static int	check_death(t_philo *philo)
 
 ```
 
-NOTE: :notepad: :neckbeard:
+NOTE :neckbeard: :
 You can also see all mutex documentation [clicking here](https://man7.org/linux/man-pages/man3/pthread_mutex_lock.3.html)
 Some popular good practises also [clicking here](https://medium.com/@sherniiazov.da/mutexes-in-c-ac2b0f1a6d34) 
 
