@@ -44,8 +44,8 @@ static int	check_death(t_philo *philo)
 ```
 
 NOTE :neckbeard: :
-You can also see all mutex documentation [clicking here](https://man7.org/linux/man-pages/man3/pthread_mutex_lock.3.html)
-Some popular good practises also [clicking here](https://medium.com/@sherniiazov.da/mutexes-in-c-ac2b0f1a6d34) 
+- You can also see all mutex documentation [clicking here](https://man7.org/linux/man-pages/man3/pthread_mutex_lock.3.html)
+- Some popular good practises also [clicking here](https://medium.com/@sherniiazov.da/mutexes-in-c-ac2b0f1a6d34) 
 
 ---
 
@@ -100,3 +100,9 @@ make && make clean && make all
 - [Geeks4Geeks](https://www.geeksforgeeks.org/operating-systems/dining-philosophers-problem/)
 - [pthread_create Linux manual ref.](https://man7.org/linux/man-pages/man3/pthread_create.3.html)
 - [pthread_mutex_init/destroy/lock/unlock/tryunclok Linux manual ref.](https://man7.org/linux/man-pages/man3/pthread_mutex_init.3.html)
+
+## IA usage:
+
+- Asking for specific no mentioned topic in the subject be like "how mutex works, show to me an example.. ".
+- Diagrams based on my code implementation to see some bugs. eg. deadlocks or bad mutex usage in a specific operation. 
+    (blocking &data->write mutex for "died" message, monitor and rutine writes and use that mutex ).
