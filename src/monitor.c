@@ -22,7 +22,7 @@ static int	check_death(t_philo *philo)
 	pthread_mutex_lock(&philo->lock);
 	last = philo->last_meal;
 	now = get_time();
-	if (!philo->eating && now - last > philo->data->death_time)
+	if (philo->status != EATING  && now - last > philo->data->death_time)
 		died = 1;
 	pthread_mutex_unlock(&philo->lock);
 	return (died);

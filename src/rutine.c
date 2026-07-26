@@ -18,12 +18,11 @@ static void	eating(t_philo *philo, pthread_mutex_t *first,
 	pick_forks(philo, first, second);
 	pthread_mutex_lock(&philo->lock);
 	philo->last_meal = get_time();
-	philo->eating = 1;
+	philo->status = EATING;
 	pthread_mutex_unlock(&philo->lock);
 	print_status(philo, "is eating");
 	ft_usleep(philo->data->eat_time);
 	pthread_mutex_lock(&philo->lock);
-	philo->eating = 0;
 	philo->eat_cont++;
 	pthread_mutex_unlock(&philo->lock);
 	drop_forks(first, second);
