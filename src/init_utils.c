@@ -60,7 +60,6 @@ static int	init_data_aux(t_data *data, char **av, int ac)
 	data->philos = NULL;
 	data->forks = NULL;
 	data->tid = NULL;
-	data->start_time = get_time();
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: garevalo <garevalo@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:27:25 by garevalo          #+#    #+#             */
-/*   Updated: 2026/07/25 14:14:58 by garevalo         ###   ########.fr       */
+/*   Updated: 2026/07/27 17:49:08 by garevalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_usleep(uint64_t ms)
 
 	start = get_time();
 	while ((get_time() - start) < ms)
-		usleep(500);
+		usleep(100);
 }
 
 int	ft_atoi(const char *str)

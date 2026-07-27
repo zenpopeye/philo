@@ -67,6 +67,13 @@ static void	*monitoring(t_data *data)
 
 	i = 0;
 	philo = data->philos;
+	if (data->meals_nbr != -1 && all_philos_full(data))
+	{
+		pthread_mutex_lock(&data->lock);
+		data->finished = 1;
+		pthread_mutex_unlock(&data->lock);
+		return (NULL);
+	}
 	while (philo && i < data->philos_nbr)
 	{
 		if (check_death(philo))
@@ -76,15 +83,8 @@ static void	*monitoring(t_data *data)
 		}
 		philo = philo->next;
 		i++;
+		ft_usleep(100);
 	}
-	if (data->meals_nbr != -1 && all_philos_full(data))
-	{
-		pthread_mutex_lock(&data->lock);
-		data->finished = 1;
-		pthread_mutex_unlock(&data->lock);
-		return (NULL);
-	}
-	ft_usleep(100);
 	return ((void *)1);
 }
 
