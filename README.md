@@ -4,10 +4,12 @@
 
 ## Description
 
-Philosophers is one of the best programs to manage "data races" in multi-thread programming.
+Philosophers is one of the best programs for playing with "data races" in multi-thread programming.
 
-*Data race* occurs when two or more threads/proccess are triying to "access/manage" the same memory address eg. *&philo->lock*
-
+*Data race* occurs when two threads/proccess are triying to "access/manage" the same memory address eg. *&philo->lock*
+Why ? because in asemmbly the instruccions (because of computer architectury) can't deal with that.
+Our program, compiled, is "translated" to assembly, to talk with the machine when we need .. eg. manipulate a integer value .. in order to do that, using hardware resources.. eg. Memmory RAM as an interface, trought the kernel.. bla bla 
+allows the program do it.
 
 Why is mutex used to manage this kinda of computanional problems?
 
@@ -17,7 +19,7 @@ and monitors.
 
 That can lead with data-races. Mutex bad usage can be decreasing the program performance
 in ejecution time and bug the program by deadlock. This is because mutex block everything between the 
-*pthread_mutex_lock* */*data manipulation code */* *pthread_mutex_unlock*. Using mutexes we have to try to do not open "data race" windows for preventing unexpected behaivor in our logic.
+*pthread_mutex_lock* */*data manipulation code */* *pthread_mutex_unlock*. Using mutexes we have to try to do not open "data race" windows for preventing unexpected behaivor in our logic or deadlocks.
 
 ``` c
 
@@ -45,7 +47,7 @@ static int	check_death(t_philo *philo)
 
 NOTE :neckbeard: :
 - You can also see all mutex documentation [clicking here](https://man7.org/linux/man-pages/man3/pthread_mutex_lock.3.html)
-- Some popular good practises also [clicking here](https://medium.com/@sherniiazov.da/mutexes-in-c-ac2b0f1a6d34) 
+- Some popular good & advanced practises also [clicking here](https://medium.com/@sherniiazov.da/mutexes-in-c-ac2b0f1a6d34) 
 
 ---
 

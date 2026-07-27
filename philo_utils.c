@@ -26,7 +26,7 @@ void	ft_usleep(uint64_t ms)
 
 	start = get_time();
 	while ((get_time() - start) < ms)
-		usleep(100);
+		usleep(500);
 }
 
 int	ft_atoi(const char *str)
@@ -57,7 +57,7 @@ void	print_status(t_philo *philo, const char *msg)
 	data = philo->data;
 	pthread_mutex_lock(&data->write);
 	if (!data->dead)
-		printf("%llu %d %s\n",
+		printf("%lu %d %s\n",
 			get_time() - data->start_time, philo->id, msg);
 	pthread_mutex_unlock(&data->write);
 }
